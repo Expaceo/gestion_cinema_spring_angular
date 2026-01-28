@@ -1,0 +1,25 @@
+name: Test Azure Connection
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test-azure-login:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Azure Login (OIDC)
+        uses: azure/login@v2
+        with:
+          client-id: 28c823ef-c7c0-44af-8f9f-d9b09ce9a95a
+          tenant-id: 417091a6-2352-40b1-868e-dda8ec58b1ef
+          subscription-id: ffb8b48c-1b29-41ad-ad7e-4f03fc185dce
+
+      - name: Check Azure context
+        run: |
+          echo "Connected account:"
+          az account show
+
+      - name: List resource groups (smoke test)
+        run: |
+          az group list --query "[].name" -o table
