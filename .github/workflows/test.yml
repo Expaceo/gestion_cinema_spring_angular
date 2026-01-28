@@ -2,7 +2,11 @@ name: Test Azure Connection
 
 on:
   workflow_dispatch:
-
+  
+permissions:
+  id-token: write   # obligatoire pour OIDC
+  contents: read
+  
 jobs:
   test-azure-login:
     runs-on: ubuntu-latest
